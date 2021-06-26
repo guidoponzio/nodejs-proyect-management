@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { Mongoose } = require("mongoose");
 const Proyecto = require("../models/Proyecto");
 const ObjectId = require("mongoose").Types.ObjectId;
 
