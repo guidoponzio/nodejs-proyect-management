@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routesProyecto = require('./routes/proyecto');
 const routesUsuario = require('./routes/usuario');
+const routesCategoria = require('./routes/categoria');
+const routesLider = require('./routes/lider');
 require('dotenv').config()
 
 
@@ -9,8 +11,6 @@ class Server {
     constructor() {
         this.app = express() 
         this.config()
-
-        
         this.routes()
     }
 
@@ -38,6 +38,8 @@ class Server {
     routes() {
         this.app.use(routesProyecto)
         this.app.use(routesUsuario)
+        this.app.use(routesCategoria)
+        this.app.use(routesLider)
     }
 
     start() {

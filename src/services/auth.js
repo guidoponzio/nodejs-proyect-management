@@ -13,8 +13,6 @@ class AuthService {
 
   middleware(req, res, next) {
     const authorization = req.headers["authorization"]
-    console.log(authorization)
-    console.log(req.headers)
     if (!authorization){
         return res.status(401)
         .send({ auth: false, message: "Falta token."});
