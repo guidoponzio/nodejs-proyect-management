@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Proyecto = require("../models/Proyecto");
 const ObjectId = require("mongoose").Types.ObjectId;
+const AuthService = require("../services/auth");
 
 class ProyectoRoutes {
   constructor() {
@@ -9,6 +10,9 @@ class ProyectoRoutes {
   }
 
   routes() {
+      
+    // Middleware de autorizacion con JWT  
+    this.router.use(AuthService.middleware);
     this.router.get("/proyecto", this.obtenerTodos);
     this.router.get("/proyecto/:id", this.obtenerPorId);
     this.router.post("/proyecto", this.crear);
@@ -78,5 +82,4 @@ class ProyectoRoutes {
 }
 
 const proyectoRoutes = new ProyectoRoutes();
-//export default ProyectoRoutes.router
 module.exports = proyectoRoutes.router;
