@@ -12,12 +12,12 @@ class ProyectoRoutes {
   routes() {
       
     // Middleware de autorizacion con JWT  
-    this.router.use(AuthService.middleware);
-    this.router.get("/proyecto", this.obtenerTodos);
-    this.router.get("/proyecto/:id", this.obtenerPorId);
-    this.router.post("/proyecto", this.crear);
-    this.router.put("/proyecto", this.modificar);
-    this.router.delete("/proyecto/:id", this.borrarPorId)
+    //this.router.use(AuthService.middleware);
+    this.router.get("/proyecto", AuthService.middleware, this.obtenerTodos);
+    this.router.get("/proyecto/:id", AuthService.middleware, this.obtenerPorId);
+    this.router.post("/proyecto", AuthService.middleware,  this.crear);
+    this.router.put("/proyecto", AuthService.middleware,  this.modificar);
+    this.router.delete("/proyecto/:id", AuthService.middleware,  this.borrarPorId)
   }
 
   async crear(req, res) {
