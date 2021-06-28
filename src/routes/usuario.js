@@ -40,15 +40,19 @@ class UsuarioRoutes {
 
   async ingresar(req, res){
 
+    console.log(req.body);
+
     const usuarioBuscado = await Usuario.findOne({ usuario: req.body.usuario })
     if( !usuarioBuscado ){
         res.status(401).send("Acceso no autorizado")
         return
     }
+
     const contraseniaValida = bcrypt.compareSync(req.body.contrasenia, usuarioBuscado.contrasenia);
     if (!contraseniaValida){
       return res.status(401).send({ auth: false, token: null });
     } 
+
     const token = AuthService.crearToken(usuarioBuscado.usuario);
     res.status(200).send({ auth: true, token: token });
 

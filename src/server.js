@@ -9,8 +9,6 @@ class Server {
     constructor() {
         this.app = express() 
         this.config()
-
-        
         this.routes()
     }
 

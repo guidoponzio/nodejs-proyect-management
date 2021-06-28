@@ -48,7 +48,8 @@ class ProyectoRoutes {
     }
     const proyectoEdit = await Proyecto.findByIdAndUpdate(data.id, data);
     if (proyectoEdit) {
-      res.send("Todo joya");
+      res.send("Modificacion correcta");
+      res.json(proyectoEdit)
     }
   }
 
