@@ -12,12 +12,13 @@ class LiderRoutes {
     routes() {
 
         // Middleware de autorizacion con JWT  
-        // this.router.use(AuthService.middleware);
-        this.router.get("/lider", AuthService.middleware, this.obtenerTodos);
-        this.router.get("/lider/:id", AuthService.middleware, this.obtenerPorId);
-        this.router.post("/lider", AuthService.middleware, this.crear);
-        this.router.put("/lider", AuthService.middleware, this.modificar);
-        this.router.delete("/lider/:id", AuthService.middleware, this.borrarPorId)
+        // Todas las rutas empiezan con /lider
+
+        this.router.delete("/:id", AuthService.middleware, this.borrarPorId)
+        this.router.get("/:id", AuthService.middleware, this.obtenerPorId);
+        this.router.get("/", AuthService.middleware, this.obtenerTodos);
+        this.router.post("/", AuthService.middleware, this.crear);
+        this.router.put("/", AuthService.middleware, this.modificar);
     }
 
     async crear(req, res) {

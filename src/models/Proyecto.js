@@ -4,6 +4,7 @@ const Proyecto = new Schema({
   nombre: { type: String, required: true},
   desc: { type: String, required: true},
   plazo: { type: Date , required: true},
+  estado: {type: String, required: true},
   categoria: {
     type: Schema.Types.ObjectId,
     ref: "Categoria",

@@ -12,21 +12,23 @@ class ProyectoRoutes {
   routes() {
       
     // Middleware de autorizacion con JWT  
-    //this.router.use(AuthService.middleware);
-    this.router.get("/proyecto", AuthService.middleware, this.obtenerTodos);
-    this.router.get("/proyecto/:id", AuthService.middleware, this.obtenerPorId);
-    this.router.post("/proyecto", AuthService.middleware,  this.crear);
-    this.router.put("/proyecto", AuthService.middleware,  this.modificar);
-    this.router.delete("/proyecto/:id", AuthService.middleware,  this.borrarPorId)
+    // Todas las rutas empiezan con /proyecto
+
+    this.router.delete("/:id", AuthService.middleware,  this.borrarPorId)
+    this.router.get("/:id", AuthService.middleware, this.obtenerPorId);
+    this.router.get("/", AuthService.middleware, this.obtenerTodos);
+    this.router.post("/", AuthService.middleware,  this.crear);
+    this.router.put("/", AuthService.middleware,  this.modificar);
+
   }
 
   async crear(req, res) {
     const data = req.body;
     if (
-      !data.nombre &&
-      !data.descripcion &&
-      !data.plazo &&
-      !data.categoria &&
+      !data.nombre ||
+      !data.descripcion ||
+      !data.plazo ||
+      !data.categoria ||
       !data.lider
     ) {
       res.status(400).send("Parametros inválidos");
@@ -38,10 +40,10 @@ class ProyectoRoutes {
   async modificar(req, res) {
     const data = req.body;
     if (
-      !data.nombre &&
-      !data.descripcion &&
-      !data.plazo &&
-      !data.categoria &&
+      !data.nombre ||
+      !data.descripcion ||
+      !data.plazo ||
+      !data.categoria ||
       !data.lider
     ) {
       res.status(400).send("Parametros inválidos");
@@ -53,28 +55,36 @@ class ProyectoRoutes {
     }
   }
 
-  async obtenerTodos(req, res) {
-    const data = await Proyecto.find({});
+  async obtenerPorId(req, res) {
+
+    const {id} = req.params;
+
+    if (!ObjectId.isValid(id)) {
+      res.status(400).send("ID invalido");
+      return
+    }
+    const data = await Proyecto.findById(id);
+    if (!data) {
+      res.status(400).send("Proyecto no encontrado");
+      return
+    }
     res.json(data);
   }
 
-  async obtenerPorId(req, res) {
-    if (!ObjectId.isValid(req.params.id)) {
-      res.status(400).send("ID invalido");
-    }
-    const data = await Proyecto.findById(req.params.id);
-    if (!data) {
-      res.status(400).send("Proyecto no encontrado");
-    }
+  async obtenerTodos(req, res) {
+    console.log('Get by id ??')
+    const data = await Proyecto.find({});
     res.json(data);
   }
 
   async borrarPorId(req, res){
 
-    if (!ObjectId.isValid(req.params.id)) {
+    const {id} = req.params;
+
+    if (!ObjectId.isValid(id)) {
         res.status(400).send("ID invalido");
       }
-      const data = await Proyecto.findByIdAndDelete(req.params.id);
+      const data = await Proyecto.findByIdAndDelete(id);
       if (!data) {
         res.status(400).send("Proyecto no encontrado");
       }

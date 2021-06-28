@@ -36,10 +36,10 @@ class Server {
     }
 
     routes() {
-        this.app.use(routesProyecto)
-        this.app.use(routesUsuario)
-        this.app.use(routesCategoria)
-        this.app.use(routesLider)
+        this.app.use('/proyecto', routesProyecto)
+        this.app.use('/usuario', routesUsuario)
+        this.app.use('/categoria', routesCategoria)
+        this.app.use('/lider', routesLider)
     }
 
     start() {

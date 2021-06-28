@@ -19,8 +19,6 @@ class AuthService {
     } 
 
     const [_, token] = authorization.split(' ');
-
-
     let payload;
     try {
       payload = jwt.verify(token, process.env.SECRET);
